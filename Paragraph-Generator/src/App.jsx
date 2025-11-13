@@ -3,6 +3,7 @@ import { useState, useRef, useEffect } from "react";
 export default function ParagraphGenerator() {
   const [count, setCount] = useState("");
   const [text, setText] = useState("");
+  const [copied, setCopied] = useState(false); // NEW
   const inputRef = useRef();
 
   const words = [
@@ -34,7 +35,10 @@ export default function ParagraphGenerator() {
 
   const generate = (count) => {
     const num = parseInt(count);
-    if (!num || num < 1) return "";
+    if (!num || num < 1) {
+      setText("Please enter a valid number.");
+      return;
+    }
 
     let result = [];
     for (let i = 0; i < num; i++) {
@@ -42,9 +46,7 @@ export default function ParagraphGenerator() {
       result.push(words[random]);
     }
 
-    const paragraph = result.join(" ") + ".";
-
-    setText(paragraph);
+    setText(result.join(" ") + ".");
   };
 
   const handleKey = (e) => {
@@ -55,11 +57,27 @@ export default function ParagraphGenerator() {
     }
   };
 
+  // 📌 NEW COPY FUNCTION
+  const handleCopy = async () => {
+    if (!text) return;
+
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopied(true);
+
+      // reset "Copied!" status after 1.5s
+      setTimeout(() => setCopied(false), 2000);
+    } catch (error) {
+      console.log("Copy failed:", error);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gray-300 p-6 flex flex-col items-center">
       <h1 className="text-2xl font-semibold mb-4">Paragraph Generator</h1>
 
       <div className="bg-white p-6 rounded-3xl shadow w-full max-w-md flex flex-col gap-4">
+
         <input
           type="number"
           value={count}
@@ -70,16 +88,24 @@ export default function ParagraphGenerator() {
           className="border px-4 py-2 rounded-2xl focus:outline-none focus:ring focus:ring-blue-400"
         />
 
-        <button
-          onClick={() => {
-            generate(count);
-          }}
-          className="bg-red-300 text-white p-2 rounded-2xl hover:bg-red-400"
-        >
-          Generate
-        </button>
+        <div className="flex justify-between">
+          <button
+            onClick={() => generate(count)}
+            className="bg-red-300 text-white px-4 py-2 rounded-2xl hover:bg-red-400"
+          >
+            Generate
+          </button>
 
-        <p className="text-gray-800 mt-3 leading-relaxed">{text}</p>
+          {/* COPY BUTTON */}
+          <button
+            onClick={handleCopy}
+            className="bg-green-400 text-white px-4 py-2 rounded-2xl hover:bg-green-500"
+          >
+            {copied ? "Copied!" : "Copy"}
+          </button>
+        </div>
+
+        <p className="text-gray-800 mt-3 leading-relaxed break-words">{text}</p>
       </div>
     </div>
   );
