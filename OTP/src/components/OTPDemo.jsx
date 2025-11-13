@@ -214,8 +214,8 @@ function OTPDemo() {
       <div className="w-full max-w-md">
         {" "}
         {/* “Make this div full width on small screens,
-  but don’t let it grow wider than 448px on large screens.”So on a mobile, it stretches edge-to-edge;
-  on desktop, it looks like a neat centered card instead of an overly wide one. */}
+            but don’t let it grow wider than 448px on large screens.”So on a mobile, it stretches edge-to-edge;
+            on desktop, it looks like a neat centered card instead of an overly wide one. */}
         <div className="bg-white rounded-2xl shadow-xl p-6 md:p-8">
           <h1 className="text-2xl font-semibold tracking-tight text-gray-800">
             Enter OTP
@@ -294,7 +294,7 @@ function Tips() {
   );
 }
 
- function SimpleOTP() {
+function SimpleOTP() {
   const LENGTH = 4;
   const [values, setValues] = useState(Array(LENGTH).fill(""));
   const inputsRef = useRef([]);
@@ -348,4 +348,4 @@ function Tips() {
   );
 }
 
-export {OTPDemo,SimpleOTP};
+export { OTPDemo, SimpleOTP };
