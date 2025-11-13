@@ -1,19 +1,19 @@
 # Assignments
 
-Small React projects built with Vite.
+Collection of small React projects built with Vite and Tailwind CSS.
 
 ## Projects
 
-- `OTP/` — OTP input component demo.
-- `Paragraph-Generator/` — Placeholder paragraph generator.
+- `Password-generator/` — Generate secure passwords with configurable length, character options, and one-click copy.
+- `Paragraph-Generator/` — Create placeholder paragraphs with adjustable length and copy support.
+- `OTP/` — Interactive OTP input component with auto-advance and smart paste handling.
 
-## Setup
+## Getting Started
 
 ```bash
-
 cd Assignments/<project>
 npm install
 npm run dev
 ```
 
-Vite serves each project on `http://localhost:5173` by default.
+Each project runs on Vite’s dev server (defaults to `http://localhost:5173`). Stop any previous dev server before starting a new project to avoid port conflicts.
