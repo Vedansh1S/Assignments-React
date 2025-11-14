@@ -66,6 +66,7 @@ export default function ParagraphGenerator() {
     try {
       await navigator.clipboard.writeText(text);
       setCopied(true);
+      inputRef.current?.select();
     } catch (error) {
       console.log("Copy failed:", error);
     }

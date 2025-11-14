@@ -54,7 +54,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-200 via-purple-200 to-pink-200 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-linear-to-br from-indigo-200 via-purple-200 to-pink-200 flex items-center justify-center p-4">
       {/*
         FLEXBOX ALIGNMENT RULES:
 
