@@ -1,9 +1,9 @@
 import { useState, useRef, useEffect } from "react";
 
 export default function ParagraphGenerator() {
-  const [count, setCount] = useState("");
+  const [count, setCount] = useState("10");
   const [text, setText] = useState("");
-  const [copied, setCopied] = useState(false); // NEW
+  const [copied, setCopied] = useState(false);
   const inputRef = useRef();
 
   const words = [
@@ -31,9 +31,11 @@ export default function ParagraphGenerator() {
 
   useEffect(() => {
     inputRef.current?.focus();
+    inputRef.current?.select();
   }, []);
 
   const generate = (count) => {
+    setCopied(false);
     const num = parseInt(count);
     if (!num || num < 1) {
       setText("Please enter a valid number.");
@@ -54,19 +56,16 @@ export default function ParagraphGenerator() {
       const value = e.target.value;
       setCount(value);
       generate(value);
+      inputRef.current?.select();
     }
   };
 
-  // 📌 NEW COPY FUNCTION
   const handleCopy = async () => {
     if (!text) return;
 
     try {
       await navigator.clipboard.writeText(text);
       setCopied(true);
-
-      // reset "Copied!" status after 1.5s
-      setTimeout(() => setCopied(false), 2000);
     } catch (error) {
       console.log("Copy failed:", error);
     }
@@ -77,7 +76,6 @@ export default function ParagraphGenerator() {
       <h1 className="text-2xl font-semibold mb-4">Paragraph Generator</h1>
 
       <div className="bg-white p-6 rounded-3xl shadow w-full max-w-md flex flex-col gap-4">
-
         <input
           type="number"
           value={count}
@@ -105,7 +103,9 @@ export default function ParagraphGenerator() {
           </button>
         </div>
 
-        <p className="text-gray-800 mt-3 leading-relaxed break-words">{text}</p>
+        <p className="text-gray-800 mt-3 leading-relaxed wrap-break-word">
+          {text}
+        </p>
       </div>
     </div>
   );
