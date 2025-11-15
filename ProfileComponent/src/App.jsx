@@ -27,6 +27,14 @@ export default function Dashboard() {
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col md:flex-row">
       {/* Sidebar */}
+      <button
+        className="p-2 text-4xl mb-2 hover:bg-gray-200 rounded transition-colors flex items-start"
+        onClick={() => {
+          setSidebarOpen(!sidebarOpen);
+        }}
+      >
+        ☰
+      </button>
       <aside
         id="sidebar"
         className={`bg-white shadow-md border-b md:border-r md:border-b-0
@@ -88,14 +96,6 @@ export default function Dashboard() {
         {/* Header */}
         <div className="flex justify-between items-center mb-8 mr-4">
           <div className="flex items-center gap-4">
-            <button
-              className="p-2 text-4xl mb-2 hover:bg-gray-200 rounded transition-colors"
-              onClick={() => {
-                setSidebarOpen(!sidebarOpen);
-              }}
-            >
-              ☰
-            </button>
             <h2 className="text-xl md:text-3xl font-bold">
               Good morning, Vedansh!
             </h2>
