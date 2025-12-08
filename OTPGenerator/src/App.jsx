@@ -1,0 +1,122 @@
+import React, { useState, useEffect } from 'react';
+
+const OtpGenerator = () => {
+  const [otp, setOtp] = useState('------');
+  const [timeLeft, setTimeLeft] = useState(0); 
+  const [length, setLength] = useState(6);
+  const [isNumeric, setIsNumeric] = useState(true);
+
+  // Logic: Generator
+  const generateOtp = () => {
+    const numeric = '0123456789';
+    const alpha = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const chars = isNumeric ? numeric : alpha;
+
+    let result = '';
+    for (let i = 0; i < length; i++) {
+      result += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+
+    setOtp(result);
+    setTimeLeft(30); 
+  };
+
+  // Logic: Timer & Auto-Clear
+  // This runs every second and cleans the interval 30 times for one OTP
+  useEffect(() => {
+    if (timeLeft <= 0) {
+      if (otp !== '------') setOtp('------'); // The auto-clear logic you asked for
+      return;
+    }
+
+    const intervalId = setInterval(() => {
+      setTimeLeft((prev) => prev - 1);
+    }, 1000);
+
+    return () => clearInterval(intervalId);
+  }, [timeLeft, otp]);
+
+  return (
+    // Outer Container (Page Background)
+    <div className="min-h-screen flex items-center justify-center bg-slate-100">
+      
+      {/* Card Component */}
+      <div className="bg-white w-full max-w-md p-8 rounded-2xl shadow-xl border border-slate-200">
+        
+        {/* Header */}
+        <div className="text-center mb-8">
+          <h1 className="text-2xl font-bold text-slate-800">Secure OTP</h1>
+          <p className="text-slate-500 text-sm mt-1">Generate a temporary access code</p>
+        </div>
+
+        {/* Display Area */}
+        <div className="bg-slate-900 rounded-xl p-6 mb-6 text-center relative overflow-hidden">
+          <span className={`text-4xl font-mono tracking-[0.5em] font-bold ${otp === '------' ? 'text-slate-600' : 'text-green-400'}`}>
+            {otp}
+          </span>
+          
+          {/* Timer Bar (Visual Flair) */}
+          {timeLeft > 0 && (
+            <div className="absolute bottom-0 left-0 h-1 bg-green-500 transition-all duration-1000 ease-linear" 
+                 style={{ width: `${(timeLeft / 30) * 100}%` }}>
+            </div>
+          )}
+        </div>
+
+        {/* Timer Text */}
+        <div className="text-center mb-6 h-6">
+          {timeLeft > 0 ? (
+            <p className="text-orange-500 font-semibold animate-pulse">
+              Expires in {timeLeft} seconds
+            </p>
+          ) : (
+            <p className="text-red-500 text-sm font-medium">
+              Code Expired or Not Generated
+            </p>
+          )}
+        </div>
+
+        {/* Controls */}
+        <div className="space-y-4 mb-8">
+          {/* Length Control */}
+          <div className="flex justify-between items-center bg-slate-50 p-3 rounded-lg">
+            <label className="text-slate-700 font-medium text-sm">Length (4-12)</label>
+            <input 
+              type="number" 
+              min="4" 
+              max="12"
+              value={length}
+              onChange={(e) => setLength(Number(e.target.value))}
+              className="w-16 p-2 border border-slate-300 rounded-md text-center focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+
+          {/* Type Toggle */}
+          <div className="flex items-center justify-between bg-slate-50 p-3 rounded-lg">
+            <span className="text-slate-700 font-medium text-sm">Allow Letters?</span>
+            <label className="relative inline-flex items-center cursor-pointer">
+              <input 
+                type="checkbox" 
+                checked={!isNumeric} 
+                onChange={() => setIsNumeric(!isNumeric)}
+                className="sr-only peer" 
+              />
+              <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+            </label>
+          </div>
+        </div>
+
+        {/* Generate Button */}
+        <button 
+          onClick={generateOtp}
+          className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-xl shadow-lg hover:shadow-blue-500/30 transition-all active:scale-[0.98]"
+        >
+          Generate New Code
+        </button>
+
+      </div>
+    </div>
+  );
+};
+
+export default OtpGenerator;
