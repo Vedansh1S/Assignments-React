@@ -24,17 +24,23 @@ const OtpGenerator = () => {
   // Logic: Timer & Auto-Clear
   // This runs every second and cleans the interval 30 times for one OTP
   useEffect(() => {
-    if (timeLeft <= 0) {
-      if (otp !== '------') setOtp('------'); // The auto-clear logic you asked for
-      return;
-    }
-
+    if (otp === "------") return;
+  
+    setTimeLeft(30);
+  
     const intervalId = setInterval(() => {
-      setTimeLeft((prev) => prev - 1);
+      setTimeLeft(prev => {
+        if (prev <= 1) {
+          clearInterval(intervalId);
+          setOtp("------");
+        }
+        return prev - 1;
+      });
     }, 1000);
-
+  
     return () => clearInterval(intervalId);
-  }, [timeLeft, otp]);
+  }, [otp]);
+  
 
   return (
     // Outer Container (Page Background)
