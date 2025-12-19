@@ -212,7 +212,6 @@ function OTPDemo() {
   return (
     <div className="min-h-screen w-full flex items-center justify-center p-6">
       <div className="w-full max-w-md">
-        {" "}
         {/* “Make this div full width on small screens,
             but don’t let it grow wider than 448px on large screens.”So on a mobile, it stretches edge-to-edge;
             on desktop, it looks like a neat centered card instead of an overly wide one. */}

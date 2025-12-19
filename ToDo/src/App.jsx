@@ -4,25 +4,29 @@ const TodoItem = memo(({ todo, onToggle, onRemove }) => {
   return (
     <li
       onClick={() => onToggle(todo.id)}
-      style={{
-        cursor: "pointer",
-        textDecoration: todo.done ? "line-through" : "none",
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-        marginBottom: 5,
-      }}
+      className="group flex items-center justify-between p-3 mb-2 bg-white border border-slate-200 rounded-lg hover:border-blue-300 transition-all cursor-pointer shadow-sm"
     >
-      <span>{todo.text}</span>
+      <div className="flex items-center gap-3">
+        {/* Checkbox visual */}
+        <div className={`w-5 h-5 rounded-full border flex items-center justify-center transition-colors ${todo.done ? 'bg-green-500 border-green-500' : 'border-slate-300'}`}>
+          {todo.done && <span className="text-white text-xs">✓</span>}
+        </div>
+        <span className={`text-slate-700 transition-all ${todo.done ? "line-through text-slate-400" : ""}`}>
+          {todo.text}
+        </span>
+      </div>
+      
       <button
         onClick={(e) => {
-          e.stopPropagation(); 
+          e.stopPropagation();
           onRemove(todo.id);
         }}
+        className="opacity-0 group-hover:opacity-100 p-2 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-md transition-all"
         aria-label="Delete todo"
-        style={{ marginLeft: 10 }}
       >
-        X
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+        </svg>
       </button>
     </li>
   );
@@ -32,12 +36,9 @@ export default function App() {
   const [text, setText] = useState("");
   const [todos, setTodos] = useState([]);
 
-  // 3. Prevent function recreation on every render
   const add = (e) => {
-    e.preventDefault(); // Prevent form refresh
+    e.preventDefault();
     if (!text.trim()) return;
-    
-    // 4. Use functional update for safer state handling
     setTodos((prev) => [
       ...prev,
       { id: Date.now(), text: text.trim(), done: false },
@@ -56,28 +57,40 @@ export default function App() {
   }, []);
 
   return (
-    <div style={{ padding: 20, maxWidth: 400 }}>
-      {/* 5. Wrap in form to enable "Enter" key submission */}
-      <form onSubmit={add} style={{ marginBottom: 20 }}>
-        <input
-          value={text}
-          onChange={(e) => setText(e.target.value)}
-          placeholder="What needs to be done?"
-          style={{ marginRight: 8 }}
-        />
-        <button type="submit">Add</button>
-      </form>
+    <div className="min-h-screen bg-slate-50 py-12 px-4">
+      <div className="max-w-md mx-auto bg-white rounded-xl shadow-xl overflow-hidden p-6 border border-slate-100">
+        <header className="mb-8">
+          <h1 className="text-2xl font-bold text-slate-800">My Tasks</h1>
+          <p className="text-slate-500 text-sm">Organize your day, one task at a time.</p>
+        </header>
 
-      <ul style={{ listStyle: "none", padding: 0 }}>
-        {todos.map((t) => (
-          <TodoItem
-            key={t.id}
-            todo={t}
-            onToggle={toggle}
-            onRemove={remove}
+        <form onSubmit={add} className="flex gap-2 mb-6">
+          <input
+            value={text}
+            onChange={(e) => setText(e.target.value)}
+            placeholder="What needs to be done?"
+            className="flex-1 px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
           />
-        ))}
-      </ul>
+          <button 
+            type="submit"
+            className="px-4 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 active:scale-95 transition-all shadow-md"
+          >
+            Add
+          </button>
+        </form>
+
+        <ul className="space-y-1">
+          {todos.length === 0 ? (
+            <div className="text-center py-10">
+              <p className="text-slate-400 italic">No tasks yet. Add one above!</p>
+            </div>
+          ) : (
+            todos.map((t) => (
+              <TodoItem key={t.id} todo={t} onToggle={toggle} onRemove={remove} />
+            ))
+          )}
+        </ul>
+      </div>
     </div>
   );
 }
