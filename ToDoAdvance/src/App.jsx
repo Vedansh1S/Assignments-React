@@ -157,12 +157,12 @@ const TodoItem = ({
         <>
           <div
             onClick={() => onToggle(todo.id)}
-            className="flex items-center gap-4 flex-1 cursor-pointer min-w-0"
+            className="flex items-start sm:items-center gap-3 flex-1 cursor-pointer min-w-0"
           >
             {/* Custom Checkbox */}
             <div
               className={`
-                w-6 h-6 flex-shrink-0
+                w-6 h-6 shrink-0
                 rounded-full border-2
                 flex items-center justify-center
                 transition-all duration-200
@@ -280,7 +280,7 @@ export default function App() {
   }, [todos, filter]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-100 to-slate-200 py-8 px-4 font-sans text-slate-800">
+    <div className="min-h-screen bg-linear-to-br from-slate-100 to-slate-200 py-8 px-4 font-sans text-slate-800">
       <div className="max-w-xl mx-auto">
         {/* Header Section */}
         <div className="mb-8 text-center sm:text-left sm:flex sm:items-end sm:justify-between">
@@ -294,8 +294,8 @@ export default function App() {
           </div>
 
           {/* Progress Circle/Bar */}
-          <div className="mt-4 sm:mt-0 flex items-center gap-3 bg-white px-4 py-2 rounded-full shadow-sm border border-slate-200">
-            <div className="flex flex-col items-end">
+          <div className="mt-4 sm:mt-0 flex items-center justify-between gap-3 bg-white px-4 py-2 rounded-xl shadow-sm border border-slate-200">
+            <div className="flex flex-col items-start ">
               <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">
                 Progress
               </span>
@@ -303,12 +303,12 @@ export default function App() {
                 {completedCount} / {totalCount}
               </span>
             </div>
-            <div className="w-10 h-10 rounded-full border-4 border-slate-100 flex items-center justify-center relative overflow-hidden">
+            <div className="w-12 h-12 rounded-full border-4 border-slate-100 flex items-center justify-center relative overflow-hidden">
               <div
                 className="absolute bottom-0 left-0 right-0 bg-blue-500 transition-all duration-500 ease-out"
                 style={{ height: `${progress}%` }}
               />
-              <span className="relative z-10 text-[10px] font-bold text-slate-700 mix-blend-multiply">
+              <span className="relative z-10 text-[10px] font-bold text-slate-800 mix-blend-multiply">
                 {progress}%
               </span>
             </div>
@@ -316,7 +316,7 @@ export default function App() {
         </div>
 
         {/* Main Card */}
-        <div className="bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden">
+        <div className="bg-white rounded-xl shadow-xl border border-slate-200 overflow-hidden">
           {/* Input Area */}
           <form
             onSubmit={add}
