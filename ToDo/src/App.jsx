@@ -37,7 +37,7 @@ const TodoItem = memo(
           {/* Checkbox */}
           <div
             className={`
-              w-5 h-5 flex-shrink-0
+              w-5 h-5 shrink-0
               rounded-full border
               flex items-center justify-center
               transition-colors
