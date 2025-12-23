@@ -1,16 +1,28 @@
-# React + Vite
+## ToDoAdvance – Advanced React To‑Do App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A polished to‑do list app built with **React** and **Vite**, featuring filtering, inline editing, progress tracking, and local storage persistence.
 
-Currently, two official plugins are available:
+### Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Add tasks**: Type a task and click the plus button (or press Enter) to add it.
+- **Mark complete**: Click on a task row to toggle it as done / not done.
+- **Edit tasks**: Click the edit icon, change the text, then press Enter or the check icon to save (Esc or the X icon cancels).
+- **Filter view**: Switch between **All**, **Active**, and **Completed** tasks using the filter tabs.
+- **Clear completed**: Use the “Clear Completed” button to remove all finished tasks at once.
+- **Progress indicator**: See how many tasks are done and a circular percentage indicator at the top.
+- **Persistent data**: Tasks are saved in `localStorage`, so your list stays even after refreshing.
 
-## React Compiler
+### Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **React + Vite**
+- **Hooks**: `useState`, `useEffect`, `useCallback`, `useMemo`, `useRef`
+- **Styling**: Tailwind‑style utility classes via `index.css`
 
-## Expanding the ESLint configuration
+### How to Run
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```bash
+npm install
+npm run dev
+```
+
+Then open the shown `http://localhost:****` URL in your browser.
