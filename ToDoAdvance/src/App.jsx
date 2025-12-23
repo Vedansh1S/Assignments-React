@@ -133,7 +133,7 @@ const TodoItem = ({
             value={editText}
             onChange={(e) => setEditText(e.target.value)}
             onKeyDown={handleKeyDown}
-            className="flex-1 px-3 py-2 bg-slate-50 border border-slate-300 rounded-lg text-slate-800 text-sm focus:outline-none focus:border-blue-500 transition-colors"
+            className="flex-1 px-3 py-2 bg-slate-50 border border-slate-300 rounded-lg text-slate-800 text-sm focus:outline-none focus:border-blue-300 transition-colors"
           />
           <div className="flex items-center gap-1">
             <button
@@ -196,7 +196,7 @@ const TodoItem = ({
           </div>
 
           {/* Actions */}
-          <div className="flex items-center gap-1 pl-10 sm:pl-0 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-200">
+          <div className="flex items-center gap-1 pl-6 sm:pl-0 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-200">
             <button
               onClick={() => setEditingId(todo.id)}
               className="p-2 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
@@ -283,7 +283,7 @@ export default function App() {
     <div className="min-h-screen bg-linear-to-br from-slate-100 to-slate-200 py-8 px-4 font-sans text-slate-800">
       <div className="max-w-xl mx-auto">
         {/* Header Section */}
-        <div className="mb-8 text-center sm:text-left sm:flex sm:items-end sm:justify-between">
+        <div className="mb-8 text-center sm:text-left sm:flex sm:justify-between">
           <div>
             <h1 className="text-3xl font-bold text-slate-900 tracking-tight">
               Tasks
@@ -328,9 +328,9 @@ export default function App() {
                 onChange={(e) => setText(e.target.value)}
                 placeholder="Add a new task..."
                 className="
-                  w-full pl-4 pr-14 py-4
+                  w-full pl-4 pr-16 py-4
                   bg-white
-                  border-0
+                  border-l-0
                   rounded-xl
                   shadow-sm
                   text-lg
@@ -361,7 +361,7 @@ export default function App() {
 
           {/* Filter Tabs */}
           {todos.length > 0 && (
-            <div className="flex items-center justify-between px-6 py-3 bg-white border-b border-slate-100 text-sm overflow-x-auto">
+            <div className="flex items-start sm:items-center flex-col sm:flex-row sm:justify-between px-6 py-3 bg-white border-b border-slate-100 text-sm overflow-x-auto gap-3">
               <div className="flex gap-1 bg-slate-100 p-1 rounded-lg">
                 {["all", "active", "completed"].map((f) => (
                   <button
